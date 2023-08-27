@@ -1,7 +1,9 @@
 FROM ubuntu:22.04
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-  && apt-get install -y --no-install-recommends curl ca-certificates
+  && apt-get install -y --no-install-recommends curl ca-certificates \
+  && rm -rf /var/lib/apt/lists/* /var/log/* /var/cache/*
+
 RUN cd /tmp/ \
   && curl -sLO $(curl -s https://api.github.com/repos/yelp/dumb-init/releases/latest \
     | awk '/browser_download_url/ { print $2 }' \
